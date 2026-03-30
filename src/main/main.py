@@ -1,6 +1,6 @@
 from LogicExample import LogicExample
-from sources.JsonHandler import JsonHandler
-from sources.XmlHandler import XmlHandler
+from src.main.sources.JsonHandler import JsonHandler
+from src.main.sources.XmlHandler import XmlHandler
 
 """
 class Main is the main entrypoint of the program.

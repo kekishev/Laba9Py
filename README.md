@@ -1,16 +1,14 @@
-<h1>Laba 6</h1>
-<p>The sixth laboratory work was done by Кекишев Андрей Сергеевич М80-106БВ-25</p>
+<h1>Laba 7</h1>
+<p>The seventh laboratory work was done by Кекишев Андрей Сергеевич М80-106БВ-25</p>
 
 <h3>Description</h3>
 <p>
-Two Protocol interfaces were realized: "Executable" and "TaskHandling".
+More properties for Task were added
 </p>
 
 The crucial thing to know is that:
 <ol>
-<li>JsonHandler implements all interfaces (Executable and TaskHandling).</li>
-<li>XmlHandler implements only TaskHandling.</li>
-<li>Task generates in TaskGenerator</li>
-<li>Example logic is inside LogicExample class</li>
-<li>Type annotations, Protocol, @runtime_checkable, isinstance() are used.</li>
+<li>Encapsulation of task fields was realized</li>
+<li>All necessary checks for setters were added</li>
+<li>Counting property <b>is_ready_for_execution</b> was added in Task class</li>
 </ol>

@@ -1,5 +1,7 @@
 import random
 
+from src.main.tasks.enums.Priority import Priority
+from src.main.tasks.enums.Status import Status
 from src.main.tasks.Task import Task
 
 
@@ -34,6 +36,7 @@ class TaskGenerator:
                 payload.append("The way to handle fields in a class with __slots__ and @property make encapsulation possible in Python.")
                 payload.append(i)
 
-            list_of_tasks.append(Task(payload))
+            list_of_tasks.append(Task(str(i), Priority(random.randint(0, 4)),
+                                      Status(random.randint(-1, 3)), payload))
 
         return list_of_tasks
