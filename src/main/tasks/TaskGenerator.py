@@ -11,6 +11,9 @@ TaskGenerator generates Task for example logic
 
 
 class TaskGenerator:
+    def __init__(self):
+        return
+
     @staticmethod
     def generate() -> list[Task]:
         quantity_of_generating_tasks: int = random.randint(20, 50)

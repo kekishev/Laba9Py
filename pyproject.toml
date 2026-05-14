@@ -10,3 +10,11 @@ dependencies = [
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+omit = [
+    "src/main/main.py",
+    "src/main/config.py",
+    "src/main/LogicExample.py",
+    "src/main/contracts/Executable.py"
+]
