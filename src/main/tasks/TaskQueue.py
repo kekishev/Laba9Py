@@ -11,10 +11,9 @@ Taskqueue realizes custom queue for Task class
 
 
 class TaskQueue:
-    __slots__ = ["_tasks", "_index"]
+    __slots__ = ["_sources"]
 
-    _tasks: list[Task]
-    _index: int
+    _sources: list[Task]
 
     """
     Initialize TaskQueue only if provided argument is a list of tasks or it is None.
@@ -23,46 +22,34 @@ class TaskQueue:
     """
     def __init__(self, tasks: list[Task] = None):
         if tasks is None:
-            self._tasks: list[Task] = []
-            self._index = 0
+            self._sources = []
             return
 
         if not isinstance(tasks, list):
-            print(type(tasks))
             raise IllegalArgumentException()
 
         for i in tasks:
             if not isinstance(i, Task):
                 raise IllegalArgumentException()
 
-        self._tasks: list[Task] = tasks
-        self._index: int = 0
+        self._sources = tasks
 
     def add(self, task: Task) -> None:
         if not isinstance(task, Task):
             raise IllegalArgumentException()
-        self._tasks.append(task)
+        self._sources.append(task)
 
-    def __iter__(self) -> TaskQueue:
-        self._index = 0
-        return self
-
-    def __next__(self) -> Task:
-        if self._index >= len(self._tasks):
-            raise StopIteration
-        task = self._tasks[self._index]
-        self._index += 1
-
-        return task
+    def __iter__(self) -> Generator[Task, None, None]:
+        yield from iter(self._sources)
 
     def __len__(self) -> int:
-        return len(self._tasks)
+        return len(self._sources)
 
     def filter_by_status(self, status: Status) -> Generator[Task, None, None]:
-        return (task for task in self._tasks if task.status == status)
+        return (task for task in self if task.status == status)
 
     def filter_by_priority(self, priority: Priority) -> Generator[Task, None, None]:
-        return (task for task in self._tasks if task.priority == priority)
+        return (task for task in self if task.priority == priority)
 
     def filter(self, predicate: Callable[[Task], bool]) -> Generator[Task, None, None]:
-        return (task for task in self._tasks if predicate(task))
+        return (task for task in self if predicate(task))

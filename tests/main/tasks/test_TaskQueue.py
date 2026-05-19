@@ -15,35 +15,35 @@ def _task(description = "test", priority: Priority = Priority.MEDIUM, status: St
     return Task(description, priority, status, [])
 
 
-def test_iter_returns_self():
+def test_iter_returns_generator():
     queue = TaskQueue([_task()])
 
-    assert iter(queue) is queue
+    assert isinstance(iter(queue), types.GeneratorType)
 
 
 def test_next_yields_tasks_in_order():
     tasks = [_task(status=Status.READY), _task(status=Status.RUNNING)]
     queue = TaskQueue(tasks)
+    it = iter(queue)
 
-    assert next(queue) is tasks[0]
-    assert next(queue) is tasks[1]
+    assert next(it) is tasks[0]
+    assert next(it) is tasks[1]
 
 
 def test_stop_iteration_on_empty_queue():
     queue = TaskQueue()
-    iter(queue)
 
     with pytest.raises(StopIteration):
-        next(queue)
+        next(iter(queue))
 
 
 def test_stop_iteration_after_exhaustion():
     queue = TaskQueue([_task()])
-    iter(queue)
-    next(queue)
+    it = iter(queue)
+    next(it)
 
     with pytest.raises(StopIteration):
-        next(queue)
+        next(it)
 
 
 def test_for_loop():
