@@ -1,4 +1,4 @@
-# Laba 7 
+# Laba 8 
 <p>The eighth laboratory work was done by Кекишев Андрей Сергеевич М80-106БВ-25</p>
 
 ## Description
