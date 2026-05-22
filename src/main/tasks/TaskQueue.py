@@ -1,4 +1,4 @@
-from typing import Generator, Callable
+from typing import Generator, AsyncGenerator, Callable
 
 from src.main.tasks.IllegalArgumentException import IllegalArgumentException
 from src.main.tasks.Task import Task
@@ -41,6 +41,10 @@ class TaskQueue:
 
     def __iter__(self) -> Generator[Task, None, None]:
         yield from iter(self._sources)
+
+    async def __aiter__(self) -> AsyncGenerator[Task, None]:
+        for task in self._sources:
+            yield task
 
     def __len__(self) -> int:
         return len(self._sources)

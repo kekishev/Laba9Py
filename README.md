@@ -1,9 +1,18 @@
-# Laba 8
-<p>The eighth laboratory work was done by Кекишев Андрей Сергеевич М80-106БВ-25</p>
+# Laba 9
+<p>The nineth laboratory work was done by Кекишев Андрей Сергеевич М80-106БВ-25</p>
 
 ## Description
 <ol>
-<li>TaskQueue has been added.</li>
-<li>__iter__ in TaskQueue is realized via <b>yield</b>.</li>
-<li>New tests have been added.</li>
+<li>
+<b>__aiter__</b> method has been added in TaskQueue.
+So TaskQueue now supports both synchronous and asynchronous programming.
+</li>
+<li>JsonHandler, XmlHandler, LogicExample now work asynchronously.</li>
+<li>
+Added new interface <b>AsyncHandling</b> instead of expanding existed ones, 
+what realizes interface segregation principle (ISP).
+</li>
+<li>
+New tests have been added. Some old tests have been fixed
+</li>
 </ol>

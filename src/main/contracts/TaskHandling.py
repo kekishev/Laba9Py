@@ -10,8 +10,8 @@ Example interface
 
 @runtime_checkable
 class TaskHandling(Protocol):
-    def get_tasks(self) -> list[Task]:
+    async def get_tasks(self) -> list[Task]:
         ...
 
-    def print_task(self, task: Task) -> None:
+    async def print_task(self, task: Task) -> None:
         ...

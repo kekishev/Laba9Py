@@ -1,5 +1,6 @@
 import logging
 
+from main.contracts.AsyncHandling import AsyncHandling
 from src.main.contracts.Executable import Executable
 from src.main.contracts.TaskHandling import TaskHandling
 from src.main.tasks.Task import Task
@@ -13,14 +14,22 @@ class LogicExample:
     logger = logging.getLogger(__name__)
 
     @staticmethod
-    def logic(handler: object) -> None:
+    async def logic(handler: object) -> None:
         if not isinstance(handler, TaskHandling):
-            LogicExample.logger.error("LogicExample: TaskHandling not implemented")
+            LogicExample.logger.info("LogicExample: TaskHandling not implemented")
 
-        tasks: list[Task] = handler.get_tasks()
-        for task in tasks:
-            handler.print_task(task)
+        try:
+            if not isinstance(handler, AsyncHandling):
+                LogicExample.logger.info("LogicExample: AsyncHandler not implemented")
+                return
 
-        if isinstance(handler, Executable):
-            for task in tasks:
-                handler.execute(task)
+            async with handler as h:
+                tasks: list[Task] = await h.get_tasks()
+                for task in tasks:
+                    await h.print_task(task)
+
+                if isinstance(h, Executable):
+                    for task in tasks:
+                        await h.execute(task)
+        except Exception as e:
+            LogicExample.logger.error("Error during task handling: %s", e)

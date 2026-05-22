@@ -1,4 +1,5 @@
 import logging
+from types import TracebackType
 
 from src.main.tasks.Task import Task
 from src.main.tasks.TaskGenerator import TaskGenerator
@@ -10,20 +11,32 @@ JsonHandler represents the example JSON handler, which implements Executable, Ta
 
 
 class JsonHandler:
-    logger = logging.getLogger(__name__)
+    _logger = logging.getLogger(__name__)
 
-    def execute(self, task: Task) -> None:
-        self.logger.info("Called execute")
+    async def execute(self, task: Task) -> None:
+        self._logger.info("Called execute")
 
         for i in task.payload:
-            self.logger.info("Make some important stuff here; i=" + str(i))
+            self._logger.info("Make some important stuff here; i=" + str(i))
             print("JsonHandler: Make some important stuff here; i=" + str(i))
 
-    def get_tasks(self) -> list[Task]:
-        self.logger.info("Called get_tasks")
+    async def get_tasks(self) -> list[Task]:
+        self._logger.info("Called get_tasks")
         task_generator: TaskGenerator = TaskGenerator()
         return task_generator.generate()
 
-    def print_task(self, task: Task) -> None:
-        self.logger.info("Called print_tasks")
+    async def print_task(self, task: Task) -> None:
+        self._logger.info("Called print_tasks")
         print("JsonHandler: " + str(task))
+
+    async def __aenter__(self) -> "JsonHandler":
+        self._logger.info("%s: opening JSON resource (e.g. file/connection)", type(self).__name__)
+        return self
+
+    async def __aexit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_val: BaseException | None,
+        exc_tb: TracebackType | None,
+    ) -> None:
+        self._logger.info("%s: closing JSON resource", type(self).__name__)

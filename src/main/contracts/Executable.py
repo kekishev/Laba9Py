@@ -10,5 +10,5 @@ Example interface
 
 @runtime_checkable
 class Executable(Protocol):
-    def execute(self, task: Task) -> None:
+    async def execute(self, task: Task) -> None:
         ...

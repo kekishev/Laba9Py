@@ -166,3 +166,28 @@ def test_large_volume_filter():
 
     assert list(queue.filter_by_status(Status.READY)) == expected
 
+
+async def test_aiter_yields_all_tasks():
+    tasks = [_task(), _task(), _task()]
+    queue = TaskQueue(tasks)
+    result = [t async for t in queue]
+
+    assert result == tasks
+
+
+async def test_aiter_preserves_order():
+    tasks = [_task(status=Status.READY), _task(status=Status.RUNNING), _task(status=Status.FAILED)]
+    queue = TaskQueue(tasks)
+    result = [t async for t in queue]
+
+    assert result[0].status == Status.READY
+    assert result[1].status == Status.RUNNING
+    assert result[2].status == Status.FAILED
+
+
+async def test_aiter_empty_queue():
+    queue = TaskQueue()
+    result = [t async for t in queue]
+
+    assert result == []
+
