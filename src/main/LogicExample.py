@@ -5,12 +5,8 @@ from src.main.contracts.Executable import Executable
 from src.main.contracts.TaskHandling import TaskHandling
 from src.main.tasks.TaskQueue import TaskQueue
 
-"""
-LogicExample contains the example logic of the program
-"""
-
-
 class LogicExample:
+    """Demonstrates async task processing using TaskHandling and AsyncHandling protocols."""
     logger = logging.getLogger(__name__)
 
     @staticmethod

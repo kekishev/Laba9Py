@@ -6,12 +6,8 @@ from src.main.tasks.TaskGenerator import TaskGenerator
 from src.main.tasks.TaskQueue import TaskQueue
 
 
-"""
-XmlHandler represents the example XML handler, which implements TaskHandling
-"""
-
-
 class XmlHandler:
+    """Async handler that implements TaskHandling for XML-sourced tasks."""
     _logger = logging.getLogger(__name__)
 
     async def get_tasks(self) -> TaskQueue:

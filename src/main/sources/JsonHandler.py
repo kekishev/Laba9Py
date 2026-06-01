@@ -6,12 +6,8 @@ from src.main.tasks.TaskGenerator import TaskGenerator
 from src.main.tasks.TaskQueue import TaskQueue
 
 
-"""
-JsonHandler represents the example JSON handler, which implements Executable, TaskHandling
-"""
-
-
 class JsonHandler:
+    """Async handler that implements TaskHandling and Executable for JSON-sourced tasks."""
     _logger = logging.getLogger(__name__)
 
     async def execute(self, task: Task) -> None:

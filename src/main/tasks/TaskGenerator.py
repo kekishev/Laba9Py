@@ -5,12 +5,8 @@ from src.main.tasks.enums.Status import Status
 from src.main.tasks.Task import Task
 
 
-"""
-TaskGenerator generates Task for example logic
-"""
-
-
 class TaskGenerator:
+    """Generates a random list of Task objects for demonstration purposes."""
     def __init__(self):
         return
 

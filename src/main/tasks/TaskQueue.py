@@ -5,22 +5,15 @@ from src.main.tasks.Task import Task
 from src.main.tasks.enums.Priority import Priority
 from src.main.tasks.enums.Status import Status
 
-"""
-Taskqueue realizes custom queue for Task class
-"""
-
-
 class TaskQueue:
+    """Custom async-iterable queue for Task objects."""
+
     __slots__ = ["_sources"]
 
     _sources: list[Task]
 
-    """
-    Initialize TaskQueue only if provided argument is a list of tasks or it is None.
-    
-    @param tasks: list of tasks. The argument can be None.
-    """
     def __init__(self, tasks: list[Task] = None):
+        """Initialize TaskQueue. Accepts a list of Task objects or None."""
         if tasks is None:
             self._sources = []
             return
