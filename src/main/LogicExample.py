@@ -1,9 +1,9 @@
 import logging
 
-from main.contracts.AsyncHandling import AsyncHandling
+from src.main.contracts.AsyncHandling import AsyncHandling
 from src.main.contracts.Executable import Executable
 from src.main.contracts.TaskHandling import TaskHandling
-from src.main.tasks.Task import Task
+from src.main.tasks.TaskQueue import TaskQueue
 
 """
 LogicExample contains the example logic of the program
@@ -24,12 +24,15 @@ class LogicExample:
                 return
 
             async with handler as h:
-                tasks: list[Task] = await h.get_tasks()
-                for task in tasks:
+                queue: TaskQueue = await h.get_tasks()
+                async for task in queue:
                     await h.print_task(task)
 
                 if isinstance(h, Executable):
-                    for task in tasks:
-                        await h.execute(task)
+                    async for task in queue:
+                        try:
+                            await h.execute(task)
+                        except Exception as e:
+                            LogicExample.logger.error("Error executing task %s: %s", task.id, e)
         except Exception as e:
             LogicExample.logger.error("Error during task handling: %s", e)

@@ -3,6 +3,7 @@ from types import TracebackType
 
 from src.main.tasks.Task import Task
 from src.main.tasks.TaskGenerator import TaskGenerator
+from src.main.tasks.TaskQueue import TaskQueue
 
 
 """
@@ -13,10 +14,11 @@ XmlHandler represents the example XML handler, which implements TaskHandling
 class XmlHandler:
     _logger = logging.getLogger(__name__)
 
-    async def get_tasks(self) -> list[Task]:
+    async def get_tasks(self) -> TaskQueue:
         self._logger.info("Called get_tasks")
         task_generator: TaskGenerator = TaskGenerator()
-        return task_generator.generate()
+        tasks = task_generator.generate()
+        return TaskQueue(tasks)
 
     async def print_task(self, task: Task) -> None:
         self._logger.info("Called print_tasks")
