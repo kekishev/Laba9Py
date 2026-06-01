@@ -14,6 +14,9 @@ Added new interface <b>AsyncHandling</b> instead of expanding existed ones,
 what realizes interface segregation principle (ISP).
 </li>
 <li>
+Dispatcher implements code extensibility idea.
+</li>
+<li>
 New tests have been added. Some old tests have been fixed
 </li>
 </ol>
