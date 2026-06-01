@@ -5,7 +5,8 @@
 <ol>
 <li>
 <b>__aiter__</b> method has been added in TaskQueue.
-So TaskQueue now supports both synchronous and asynchronous programming.
+So, TaskQueue now supports both synchronous and asynchronous programming.<br>
+Please, note that TaskQueue is only called in asynchronous context.
 </li>
 <li>JsonHandler, XmlHandler, LogicExample now work asynchronously.</li>
 <li>
