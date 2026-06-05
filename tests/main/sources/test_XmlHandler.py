@@ -2,6 +2,7 @@ from src.main.contracts.TaskHandling import TaskHandling
 from src.main.sources.JsonHandler import JsonHandler
 from src.main.sources.XmlHandler import XmlHandler
 from src.main.tasks.Task import Task
+from src.main.tasks.TaskQueue import TaskQueue
 from src.main.tasks.enums.Priority import Priority
 from src.main.tasks.enums.Status import Status
 
@@ -22,7 +23,7 @@ async def test_get_tasks_returns_list_of_tasks():
     handler = XmlHandler()
     tasks = await handler.get_tasks()
 
-    assert isinstance(tasks, list)
+    assert isinstance(tasks, TaskQueue)
     assert len(tasks) > 0
     assert all(isinstance(t, Task) for t in tasks)
 
@@ -45,5 +46,5 @@ async def test_context_manager_returns_handler_instance():
 async def test_context_manager_get_tasks_inside_block():
     async with XmlHandler() as h:
         tasks = await h.get_tasks()
-        assert isinstance(tasks, list)
+        assert isinstance(tasks, TaskQueue)
         assert len(tasks) > 0
